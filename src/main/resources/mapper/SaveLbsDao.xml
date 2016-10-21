@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="me.xiaotian.geohash.dao.LbsDao">
+
+    <insert id="saveLbs" parameterType="java.util.List">
+        INSERT INTO loc (`name`,`place`,`lat`,`lon`,`geohash`) VALUES
+        <foreach collection="locs" item="loc" index="index" separator=",">
+            ( #{loc.name} , #{loc.place} , #{loc.lat} , #{loc.lon} , #{loc.geohash} )
+        </foreach>
+    </insert>
+
+    <insert id="saveLbs1">
+         INSERT INTO loc (`name`,`place`,`lat`,`lon`,`geohash`) VALUES
+         (#{loc.name} , #{loc.place} , #{loc.lat} , #{loc.lon} , #{loc.geohash})
+    </insert>
+
+</mapper>

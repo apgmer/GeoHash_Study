@@ -72,7 +72,7 @@
         <property name="configLocation" value="classpath:mybatis-config.xml"/>
         <!-- 扫描entity包 使用别名 -->
         <!-- cn.acheng1314是我的应用程序的包名,你们需要使用你们自己的包名,也就是前面我们提到过的GroupId -->
-        <!--<property name="typeAliasesPackage" value="cn.necl.admin"/>-->
+        <property name="typeAliasesPackage" value="me.xiaotian"/>
         <!-- 扫描sql配置文件:mapper需要的xml文件 -->
         <property name="mapperLocations" value="classpath:mapper/*.xml"/>
     </bean>
@@ -82,7 +82,7 @@
         <!-- 注入sqlSessionFactory -->
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
         <!-- 给出需要扫描Dao接口包 -->
-        <property name="basePackage" value="cn.necl.admin.dao"/>
+        <property name="basePackage" value="me.xiaotian.geohash.dao"/>
     </bean>
 
     <!-- 上面的druid的配置 -->
