@@ -3,8 +3,8 @@
  */
 
 var map = new AMap.Map('container',{
-    zoom: 10,
-    center: [116.39,39.9]
+    zoom: 13,
+    center: [116.204521, 40.226487]
 });
 
 AMap.service(["AMap.PlaceSearch"], function() {
@@ -19,7 +19,7 @@ AMap.service(["AMap.PlaceSearch"], function() {
     placeSearch.searchNearBy("", [116.204521, 40.226487], 5000, function(status, result) {
         if (status === 'complete' && result.info === 'OK') {
             console.log(result.poiList)
-            savePoi(result.poiList);
+            // savePoi(result.poiList);
         }
     });
 

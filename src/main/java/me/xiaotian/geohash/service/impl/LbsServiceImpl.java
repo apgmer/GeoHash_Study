@@ -1,6 +1,8 @@
 package me.xiaotian.geohash.service.impl;
 
+import ch.hsr.geohash.GeoHash;
 import me.xiaotian.geohash.dao.LbsDao;
+import me.xiaotian.geohash.dto.GeoNeighbour;
 import me.xiaotian.geohash.dto.PoiListDto;
 import me.xiaotian.geohash.entity.Loc;
 import me.xiaotian.geohash.service.LbsService;
@@ -28,9 +30,16 @@ public class LbsServiceImpl implements LbsService {
             lbsDao.saveLbs(locs);
 //            lbsDao.saveLbs1(locs.get(0));
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public List<Loc> getLocByLen(int len, Double lat, Double lon) {
+        GeoNeighbour locs = new GeoNeighbour(len, lat, lon);
+        List<Loc> locList = lbsDao.queryLoc(locs);
+        return locList;
     }
 }

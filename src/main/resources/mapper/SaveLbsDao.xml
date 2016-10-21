@@ -15,4 +15,11 @@
          (#{loc.name} , #{loc.place} , #{loc.lat} , #{loc.lon} , #{loc.geohash})
     </insert>
 
+    <select id="queryLoc" resultType="me.xiaotian.geohash.entity.Loc" parameterType="me.xiaotian.geohash.dto.GeoNeighbour">
+        SELECT * FROM `loc` WHERE LEFT(`geohash`,#{geoNeighbour.len}) IN
+--         ('wx4g3','wx4fc','wx4g4','wx4g0','wx4g2','wx4g6','wx4ff','wx4fb','wx4g1')
+        <foreach collection="geoNeighbour.con" item="item" index="index"
+                 open="(" separator="," close=")">#{item}</foreach>
+    </select>
+
 </mapper>

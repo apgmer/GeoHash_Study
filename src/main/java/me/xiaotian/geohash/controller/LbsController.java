@@ -1,16 +1,16 @@
 package me.xiaotian.geohash.controller;
 
 import me.xiaotian.geohash.dto.PoiListDto;
+import me.xiaotian.geohash.entity.Loc;
 import me.xiaotian.geohash.service.LbsService;
 import me.xiaotian.geohash.util.WebResultUtil;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -34,6 +34,19 @@ public class LbsController {
             return WebResultUtil.ERRORACT();
         }
 
+    }
+
+    @RequestMapping(value = "/show")
+    public String sohwView(){
+        return "show";
+    }
+
+    @RequestMapping(value = "/show",method = RequestMethod.POST)
+    @ResponseBody
+    public List<Loc> showView2(@RequestParam(value = "lev", required = false) Integer lev,
+                          @RequestParam(value = "lat", required = false) Double lat,
+                          @RequestParam(value = "lon", required = false) Double lon){
+        return lbsService.getLocByLen(lev,lat,lon);
     }
 
 }

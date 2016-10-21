@@ -1,5 +1,6 @@
 package me.xiaotian.geohash.dao;
 
+import me.xiaotian.geohash.dto.GeoNeighbour;
 import me.xiaotian.geohash.entity.Loc;
 import org.apache.ibatis.annotations.Param;
 
@@ -13,5 +14,7 @@ public interface LbsDao {
     int saveLbs(@Param("locs") List<Loc> locs);
 
     int saveLbs1(@Param("loc") Loc loc);
+
+    List<Loc> queryLoc(@Param("geoNeighbour")GeoNeighbour geoNeighbour);
 
 }
