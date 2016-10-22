@@ -2,6 +2,7 @@ package me.xiaotian.geohash.controller;
 
 import me.xiaotian.geohash.dto.PoiListDto;
 import me.xiaotian.geohash.entity.Loc;
+import me.xiaotian.geohash.service.LbsCopyService;
 import me.xiaotian.geohash.service.LbsService;
 import me.xiaotian.geohash.util.WebResultUtil;
 import org.springframework.http.MediaType;
@@ -23,6 +24,9 @@ public class LbsController {
 
     @Resource
     private LbsService lbsService;
+
+    @Resource
+    private LbsCopyService lbsCopyService;
 
     @RequestMapping(value = "/saveLoc",method = RequestMethod.POST,produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
@@ -47,6 +51,21 @@ public class LbsController {
                           @RequestParam(value = "lat", required = false) Double lat,
                           @RequestParam(value = "lon", required = false) Double lon){
         return lbsService.getLocByLen(lev,lat,lon);
+    }
+
+
+    @RequestMapping(value = "/showAll")
+    public String showAllView(){
+        return "showAll";
+    }
+
+    @RequestMapping(value = "/showAll",method = RequestMethod.POST)
+    @ResponseBody
+    public List<Loc> showAllView2(@RequestParam(value = "lev", required = false) Integer lev,
+                               @RequestParam(value = "lat", required = false) Double lat,
+                               @RequestParam(value = "lon", required = false) Double lon){
+//        return lbsService.getLocByLen(lev,lat,lon);
+        return lbsCopyService.getLocByLen(lev,lat,lon);
     }
 
 }

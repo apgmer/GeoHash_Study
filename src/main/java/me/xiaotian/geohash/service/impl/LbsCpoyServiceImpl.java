@@ -2,35 +2,32 @@ package me.xiaotian.geohash.service.impl;
 
 import ch.hsr.geohash.GeoHash;
 import me.xiaotian.geohash.dao.LbsCopy;
-import me.xiaotian.geohash.dao.LbsDao;
 import me.xiaotian.geohash.dto.GeoNeighbour;
-import me.xiaotian.geohash.dto.PoiListDto;
 import me.xiaotian.geohash.entity.Loc;
-import me.xiaotian.geohash.service.LbsService;
-import me.xiaotian.geohash.util.LbsDtoToEntity;
+import me.xiaotian.geohash.service.LbsCopyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
 /**
- * Created by guoxiaotian on 2016/10/21.
+ * Created by guoxiaotian on 2016/10/22.
  */
 @Service
-public class LbsServiceImpl implements LbsService {
+public class LbsCpoyServiceImpl implements LbsCopyService {
 
     @Autowired
-    private LbsDao lbsDao;
-
+    private LbsCopy lbsCopy;
 
     @Override
-    public boolean saveLoc(PoiListDto poiListDto) {
+    public boolean saveLoc2(double lat, double lon) {
+        Loc loc = new Loc();
+        GeoHash geoHash = GeoHash.withCharacterPrecision(lat, lon, 12);
+        loc.setLat(lat);
+        loc.setLon(lon);
+        loc.setGeohash(geoHash.toBase32());
         try {
-            LbsDtoToEntity l = new LbsDtoToEntity(poiListDto);
-            List<Loc> locs = l.getLocs();
-            lbsDao.saveLbs(locs);
-//            lbsDao.saveLbs1(locs.get(0));
+            lbsCopy.addLoc(loc);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -39,11 +36,14 @@ public class LbsServiceImpl implements LbsService {
     }
 
     @Override
-    public List<Loc> getLocByLen(int len, Double lat, Double lon) {
-        GeoNeighbour locs = new GeoNeighbour(len, lat, lon);
-        List<Loc> locList = lbsDao.queryLoc(locs);
-        return locList;
+    public List<Loc> listLoc() {
+        return lbsCopy.getAllLoc();
     }
 
-
+    @Override
+    public List<Loc> getLocByLen(int len, Double lat, Double lon) {
+        GeoNeighbour locs = new GeoNeighbour(len, lat, lon);
+        List<Loc> locList = lbsCopy.queryLoc(locs);
+        return locList;
+    }
 }

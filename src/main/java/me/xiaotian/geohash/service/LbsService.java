@@ -12,6 +12,7 @@ public interface LbsService {
 
     boolean saveLoc(PoiListDto poiListDto);
 
-    public List<Loc> getLocByLen(int len, Double lat, Double lon) ;
+    List<Loc> getLocByLen(int len, Double lat, Double lon);
+
 
 }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="me.xiaotian.geohash.dao.LbsCopy">
+    <insert id="addLoc">
+        INSERT INTO loc_copy (`name`,`place`,`lat`,`lon`,`geohash`) VALUES
+        (#{loc.name} , #{loc.place} , #{loc.lat} , #{loc.lon} , #{loc.geohash})
+    </insert>
+    <select id="getAllLoc" resultType="me.xiaotian.geohash.entity.Loc">
+        SELECT * from loc_copy
+    </select>
+    <select id="queryLoc" resultType="me.xiaotian.geohash.entity.Loc" parameterType="me.xiaotian.geohash.dto.GeoNeighbour">
+        SELECT * FROM `loc_copy` WHERE LEFT(`geohash`,#{geoNeighbour.len}) IN
+        --         ('wx4g3','wx4fc','wx4g4','wx4g0','wx4g2','wx4g6','wx4ff','wx4fb','wx4g1')
+        <foreach collection="geoNeighbour.con" item="item" index="index"
+                 open="(" separator="," close=")">#{item}</foreach>
+    </select>
+</mapper>
